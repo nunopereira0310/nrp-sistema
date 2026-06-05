@@ -518,6 +518,7 @@ function calcPrev(){
 }
 function addEmp(){
   try {
+  var _fmt=function(n){return(+n||0).toLocaleString('pt-PT',{minimumFractionDigits:2,maximumFractionDigits:2});};
   var nome=document.getElementById('c_nome').value.trim();
   var cap=parseFloat(document.getElementById('e_cap').value)||0;
   var juro=parseFloat(document.getElementById('e_juro').value)||0;
@@ -533,7 +534,7 @@ function addEmp(){
   var caixaDisp = caixaOrig==='bim'?(caixaData.bim||0):caixaOrig==='mpesa'?(caixaData.mpesa||0):(caixaData.emola||0);
   var contaNome = caixaOrig==='bim'?'BIM':caixaOrig==='mpesa'?'M-Pesa':'e-Mola';
   if(caixaDisp < cap){
-    if(!confirm('⚠ Atenção: '+contaNome+' tem apenas '+fmtN(caixaDisp)+' MT disponível. Vais desembolsar '+fmtN(cap)+' MT. Confirmar mesmo assim?')) return;
+    if(!confirm('⚠ Atenção: '+contaNome+' tem apenas '+_fmt(caixaDisp)+' MT disponível. Vais desembolsar '+_fmt(cap)+' MT. Confirmar mesmo assim?')) return;
   }
 
   var ini=new Date(iniRaw);
@@ -580,7 +581,7 @@ function addEmp(){
     morada:document.getElementById('c_morada').value,
     n_total:prest, n_pagas:0, total_pago:0,
     total_mora:0, prest:prestArray,
-    obs:'Desembolsado em '+fmt(ini)+' via '+contaNome+'. Capital: '+fmtN(cap)+' MT. Juro: '+juro+'%. '+prest+' prestação(ões).',
+    obs:'Desembolsado em '+fmt(ini)+' via '+contaNome+'. Capital: '+_fmt(cap)+' MT. Juro: '+juro+'%. '+prest+' prestação(ões).',
   });
 
   // ── SUBTRACT FROM CAIXA ──
@@ -596,7 +597,7 @@ function addEmp(){
     id:Date.now(),
     data:fmt(hj),
     categoria:'Operacional',
-    descricao:'Desembolso empréstimo '+contaId+' — '+nome+' ('+fmtN(cap)+' MT via '+contaNome+')',
+    descricao:'Desembolso empréstimo '+contaId+' — '+nome+' ('+_fmt(cap)+' MT via '+contaNome+')',
     valor:cap,
     tipo:'desembolso',
     loanId:contaId
@@ -609,7 +610,7 @@ function addEmp(){
   });
   tab='carteira';
   render();
-  alert('✓ Empréstimo registado!\n\nCapital desembolsado: '+fmtN(cap)+' MT\nSaiu de: '+contaNome+'\n\nCaixa actualizado automaticamente.');
+  alert('✓ Empréstimo registado!\n\nCapital desembolsado: '+_fmt(cap)+' MT\nSaiu de: '+contaNome+'\n\nCaixa actualizado automaticamente.');
   } catch(err) {
     alert('Erro ao registar: ' + err.message);
     console.error('addEmp error:', err);
