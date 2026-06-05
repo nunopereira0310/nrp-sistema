@@ -198,8 +198,9 @@ label{display:block;color:var(--mut);font-size:11px;font-weight:600;text-transfo
       </select>
     </div>
     <div style="color:var(--acc);font-size:9px;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;font-weight:700">▸ Dados do Cliente</div>
+    <div id="dup_warn" style="grid-column:span 2"></div>
     <div class="g2" style="margin-bottom:14px">
-      <div id="dup_warn"></div><div class="fld"><label>Nome Completo *</label><input class="inp" id="c_nome" oninput="checkDuplicateClient()"></div>
+      <div class="fld"><label>Nome Completo *</label><input class="inp" id="c_nome" oninput="checkDuplicateClient()"></div>
       <div class="fld"><label>Telefone</label><input class="inp" id="c_tel" placeholder="+258 8X..."></div>
       <div class="fld"><label>BI / Passaporte</label><input class="inp" id="c_bi" placeholder="Nº documento"></div>
       <div class="fld"><label>NUIT</label><input class="inp" id="c_nuit" placeholder="9 dígitos" maxlength="9" oninput="checkDuplicateClient()"></div>
@@ -516,6 +517,7 @@ function calcPrev(){
   document.getElementById('e_prev').style.display='block';
 }
 function addEmp(){
+  try {
   var nome=document.getElementById('c_nome').value.trim();
   var cap=parseFloat(document.getElementById('e_cap').value)||0;
   var juro=parseFloat(document.getElementById('e_juro').value)||0;
@@ -608,6 +610,10 @@ function addEmp(){
   tab='carteira';
   render();
   alert('✓ Empréstimo registado!\n\nCapital desembolsado: '+fmtN(cap)+' MT\nSaiu de: '+contaNome+'\n\nCaixa actualizado automaticamente.');
+  } catch(err) {
+    alert('Erro ao registar: ' + err.message);
+    console.error('addEmp error:', err);
+  }
 }
 function addDesp(){
   const desc=document.getElementById('d_desc').value.trim();
