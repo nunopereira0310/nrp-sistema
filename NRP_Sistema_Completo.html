@@ -312,19 +312,7 @@ const DSEED=[{"id": "D0001", "data": "05/01/2026", "categoria": "Operacional", "
 // Estado
 let loans      = JSON.parse(localStorage.getItem('nrp_l')||'null') || LSEED;
 let despesas   = JSON.parse(localStorage.getItem('nrp_d')||'null') || DSEED;
-let pagamentos = JSON.parse(localStorage.getItem('nrp_p')||'null') || [];
-// Inject seed payments if not yet in localStorage
-(function(){
-  var seeds=[
-    {id:20269001,loanId:"0269/02",nome:"Pedroso Pais",data:"05/06/2026",valor:23000,metodo:"Garantia",ref:"EXEC-GAR-0269",nota:"Liquidacao por execucao de garantia — venda de telefone por 23.000 MT. Saldo era 20.491,80 MT. Excedente 2.508,20 MT retido para custos de cobranca.",saldoAntes:20491.80,saldoDepois:0,estado:"Pago"}
-  ];
-  seeds.forEach(function(s){
-    if(!pagamentos.find(function(p){return p.id===s.id;})){
-      pagamentos.push(s);
-    }
-  });
-})();
-let clients    = JSON.parse(localStorage.getItem('nrp_c')||'null') || CLIENTS_BASE;
+let pagamentos = JSON.parse(localStorage.getItem('nrp_p')||'null') || [];let clients    = JSON.parse(localStorage.getItem('nrp_c')||'null') || CLIENTS_BASE;
 let editId     = null;
 let tab='posicao', sv='', fs='todos', fm='todos', selId=null, cSv='', cFil='todos';
 
@@ -2999,4 +2987,4 @@ render();
   </div>
 </div>
 </body>
-</html>
+</html
